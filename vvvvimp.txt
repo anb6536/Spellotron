@@ -1,0 +1,77 @@
+file = open( filename )
+    for line in file:
+        line = line.strip()
+        line = line.split()
+        for i in line:
+            wordCount += 1
+            before, word, after = puncRemove(i)
+            if word in dictList:
+                print( word, sep= " ", end= " ")
+                continue
+            correctedWord = adjKeyAutocorrect( adjacentDict, dictList, word )
+            if correctedWord != None:
+                correctedCount += 1
+                correctedWord = before+correctedWord+after
+                correctedList.append(i)
+                correctList.append(correctedWord)
+                print( correctedWord, sep= " ", end= " ")
+                continue
+            correctedWord = missingAutocorrect( alphaList, dictList, word )
+            if correctedWord != None:
+                correctedCount += 1
+                correctedWord = before+correctedWord+after
+                correctedList.append(i)
+                correctList.append(correctedWord)
+                print( correctedWord, sep= " ", end= " ")
+                continue
+            correctedWord = extraAutocorrect( dictList, word )
+            if correctedWord != None:
+                correctedCount += 1
+                correctedWord = before+correctedWord+after
+                correctedList.append(i)
+                correctList.append(correctedWord)
+                print( correctedWord, sep= " ", end= " ")
+                continue
+            word = caseChange(word)
+            if word in dictList:
+                print( word, sep= " ", end= " ")
+                continue
+            correctedWord = adjKeyAutocorrect( adjacentDict, dictList, word )
+            if correctedWord != None:
+                correctedCount += 1
+                correctedWord = before+correctedWord+after
+                correctedList.append(i)
+                correctList.append(correctedWord)
+                print( correctedWord, sep= " ", end= " ")
+                continue
+            correctedWord = missingAutocorrect( alphaList, dictList, word )
+            if correctedWord != None:
+                correctedCount += 1
+                correctedWord = before+correctedWord+after
+                correctedList.append(i)
+                correctList.append(correctedWord)
+                print( correctedWord, sep= " ", end= " ")
+                continue
+            correctedWord = extraAutocorrect( dictList, word )
+            if correctedWord != None:
+                correctedCount += 1
+                correctedWord = before+correctedWord+after
+                correctedList.append(i)
+                correctList.append(correctedWord)
+                print( correctedWord, sep= " ", end= " ")
+                continue
+            else:
+                incorrectCount += 1
+                word = caseChange(word)
+                word = before+word+after
+                incorrectList.append(word)
+                print( word, sep= " ", end= " ")
+        print ()
+    print ()
+    print( wordCount, "words read from file")
+    print()
+    print( correctedCount, "Corrected Words")
+    print( correctedList )
+    print()
+    print(incorrectCount, "Unknown Words")
+    print( incorrectList )
